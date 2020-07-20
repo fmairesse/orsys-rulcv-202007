@@ -87,7 +87,7 @@ public class ProductsRepository {
 
 ### Classe implémentant l'API REST des produits
 
-Créer la classe `products.ProductResourceV1` qui répondra aux requêtes sur `/products/v1`.
+Créer la classe `products.ProductsResourceV1` qui répondra aux requêtes sur `/products/v1`.
 
 Ici, les imports java ne sont pas donnés. On prendra garde à ne pas importer des classes de quarkus, mais plutôt celle venant de la spécification JAX-RS.
 
@@ -193,12 +193,19 @@ Répondre aux requêtes suivantes:
 
 ### Modèle de données
 
-Classe `accounts.TransactionModel`:
+Classe `accounts.AccountModel`:
+
 ```java
-public class TransactionModel {
-	public double amount;
+public class AccountModel {
+	public int id;
+	public double credit;
 	
-	public TransactionModel() {
+	public AccountModel() {
+	}
+	
+	public AccountModel(int id, double credit) {
+		this.id = id;
+		this.credit = credit;
 	}
 }
 ```
@@ -240,23 +247,17 @@ Répondre aux requêtes suivantes:
 
 - `POST /accounts/v1/{id}/transactions`: crée une transaction, c'est-à-dire décrédite le compte du montant de la transaction.  Échoue si l'opération rend le crédit négatif (`throw new ClientErrorException` avec code `409 Conflict`).
 
-- `PUT /accounts/v1/{id}`: modifie un compte (pour pouvoir le recréditer)
-
-Classe `accounts.AccountModel`:
+  Classe `accounts.TransactionModel` pour représenter la donnée envoyée lors de la création d'une commande:
 ```java
-public class AccountModel {
-	public int id;
-	public double credit;
+public class TransactionModel {
+	public double amount;
 	
-	public AccountModel() {
-	}
-	
-	public AccountModel(int id, double credit) {
-		this.id = id;
-		this.credit = credit;
+	public TransactionModel() {
 	}
 }
 ```
+
+- `PUT /accounts/v1/{id}`: modifie un compte (pour pouvoir le recréditer)
 
 ## Bonus
 
