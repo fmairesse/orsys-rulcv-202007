@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  gateway:
+    image: quarkus/quarkus-store-jvm
+    ports:
+    - "8081:8080"
+    depends_on:
+    - accounts
+    - orders
+    - products
+  accounts:
+    image: quarkus/quarkus-store-jvm
+  orders:
+    image: quarkus/quarkus-store-jvm
+  products:
+    image: quarkus/quarkus-store-jvm
