@@ -21,7 +21,6 @@ public class ProductsResourceV1 {
 	ProductsRepository products;
 
 	@GET
-	@MakeSlow
 	public Collection<ProductModel> list() {
 		return products.getProducts();
 	}
@@ -29,6 +28,7 @@ public class ProductsResourceV1 {
 	@GET
 	@Path("{id}")
 	@SimulateNetworkFailure
+	@MakeSlow
 	public ProductModel get(@PathParam("id") int id) {
 		return getProductOrFail(id);
 	}

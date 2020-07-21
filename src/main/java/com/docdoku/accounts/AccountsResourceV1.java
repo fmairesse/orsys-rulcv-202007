@@ -10,6 +10,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 
+import com.docdoku.common.MakeSlow;
+import com.docdoku.common.SimulateNetworkFailure;
+
 @Path("/accounts/v1")
 public class AccountsResourceV1 {
 
@@ -21,6 +24,8 @@ public class AccountsResourceV1 {
 	 */
 	@POST
 	@Path("{accountId}/transactions")
+	@SimulateNetworkFailure
+	@MakeSlow
 	public void createTransaction(@PathParam("accountId") int accountId, TransactionModel transaction) {
 		AccountModel account = getAccountOrFail(accountId);
 		double newCredit = account.credit - transaction.amount;
