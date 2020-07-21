@@ -1,0 +1,31 @@
+version: "3.8"
+
+volumes:
+  datevol:
+
+networks:
+  datevol:
+
+services:
+  datewriter:
+    image: datewriter
+    volumes:
+    - "datevol:/data"
+    networks:
+    - datevol
+  datereader:
+    image: alpine
+    volumes:
+    - "datevol:/data"
+    command: tail -f /data/date.txt
+    depends_on:
+     - datewriter
+    networks:
+    - datevol
+  pinger:
+    image: alpine
+    command: ping datereader
+    depends_on:
+    - datereader
+    networks:
+    - datevol
