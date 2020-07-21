@@ -15,7 +15,7 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 public class SimulateNetworkFailureFilter implements ContainerRequestFilter {
 	private final Random random = new Random();
 
-	@ConfigProperty(name = "simulate-failure")
+	@ConfigProperty(name = "simulate-failure", defaultValue = "true")
 	boolean simulateFailure;
 
 	@Override

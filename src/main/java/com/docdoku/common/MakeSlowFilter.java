@@ -20,7 +20,7 @@ public class MakeSlowFilter implements ContainerRequestFilter {
 
 	private final Random random = new Random();
 
-	@ConfigProperty(name = "simulate-failure")
+	@ConfigProperty(name = "simulate-failure", defaultValue = "true")
 	boolean simulateFailure;
 
 	@Override
