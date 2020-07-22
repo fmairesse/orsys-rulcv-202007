@@ -10,12 +10,18 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 
+import com.docdoku.common.MakeSlow;
+import com.docdoku.common.SimulateNetworkFailure;
+import com.docdoku.gateway.SagaOrderModel;
+
+import org.eclipse.microprofile.reactive.messaging.Incoming;
+
 @Path("/orders/v1")
 public class OrdersResourceV1 {
 
 	@Inject
 	OrdersRepository orders;
-	
+
 	@GET
 	public Collection<OrderModel> list() {
 		return this.orders.getOrders();
@@ -35,7 +41,22 @@ public class OrdersResourceV1 {
 	}
 	
 	@POST
+	@SimulateNetworkFailure
+	@MakeSlow
 	public OrderModel create(OrderModel order) {
 		return this.orders.createOrder(order);
+	}
+
+	/**
+	 * Called when the account has been debited.
+	 * Here we finalize the order process by setting
+	 * the state of the order.
+	 */
+	@Incoming("account-debited")
+	public void onAccountDebited(SagaOrderModel saga) {
+		System.out.println("--- 3. Order finalized");
+		OrderModel order = this.orders.getOrder(saga.orderId);
+		order.state = OrderModel.State.CREATED;
+		this.orders.saveOrder(order);
 	}
 }

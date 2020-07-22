@@ -12,12 +12,20 @@ import javax.ws.rs.core.Response;
 
 import com.docdoku.common.MakeSlow;
 import com.docdoku.common.SimulateNetworkFailure;
+import com.docdoku.gateway.SagaOrderModel;
+
+import org.eclipse.microprofile.reactive.messaging.Channel;
+import org.eclipse.microprofile.reactive.messaging.Emitter;
+import org.eclipse.microprofile.reactive.messaging.Incoming;
 
 @Path("/accounts/v1")
 public class AccountsResourceV1 {
 
 	@Inject
 	AccountsRepository accounts;
+
+	@Inject @Channel("account-debited")
+	Emitter<SagaOrderModel> accountEmitter;
 
 	/**
 	 * Called when a new order is passed, in order to update the credit of the user.
@@ -56,5 +64,14 @@ public class AccountsResourceV1 {
 		if (account == null)
 			throw new NotFoundException();
 		return account;
+	}
+
+	@Incoming("order-created")
+	public void onOrderCreated(SagaOrderModel saga) {
+		AccountModel account = getAccountOrFail(saga.accountId);
+		account.credit -= saga.transactionAmount;
+		this.accounts.saveAccount(account);
+		System.out.println("--- 2. Account debited");
+		accountEmitter.send(saga);
 	}
 }

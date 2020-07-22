@@ -19,6 +19,10 @@ public class AccountsRepository {
 		return this.accounts.get(accountId);
 	}
 	
+	public void saveAccount(AccountModel account) {
+		accounts.put(account.id, account);
+	}
+
 	private void addAccount(int id, int credit) {
 		this.accounts.put(id, new AccountModel(id, credit));
 	}

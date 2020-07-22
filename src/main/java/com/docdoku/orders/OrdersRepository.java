@@ -22,9 +22,14 @@ public class OrdersRepository {
 	}
 
 	public OrderModel createOrder(OrderModel order) {
+		System.out.println("createOrder " + this);
 		order = new OrderModel(lastId.incrementAndGet(), order);
 		this.orders.put(order.id, order);
 		return order;
+	}
+
+	public void saveOrder(OrderModel order) {
+		this.orders.put(order.id, order);
 	}
 
 	public void clearOrders() {

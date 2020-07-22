@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "47ebccae-8f1b-444e-8a83-3a35235459ee",
+		"_postman_id": "fc738bdf-18b2-4802-83ab-d05b2f2f5aa7",
 		"name": "quarkus-store",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -14,7 +14,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "5115438e-63d7-4d56-9734-56dda838bbc7",
+								"id": "8859b803-9a8a-41fa-8549-d5700ac1c390",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
@@ -64,7 +64,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "023c0d02-35ae-4015-9065-cfdbc878bcc8",
+								"id": "da5aa46f-7211-4662-b581-6a7b4db3f7c5",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
@@ -109,7 +109,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "46f553d0-590f-47e2-9856-116eb18c6693",
+								"id": "fd4bf3d0-b66d-4116-911c-da0c15f5bc0f",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
@@ -163,7 +163,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "682feb56-dc83-4059-8718-0ed150326b13",
+								"id": "ce177f27-88f5-4fd9-bb86-fcc0ace1cd18",
 								"exec": [
 									"pm.test(\"Status code is 404\", function () {\r",
 									"    pm.response.to.have.status(404);\r",
@@ -202,7 +202,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "16a358ef-883e-47d7-acd3-277fa4c70159",
+								"id": "435dc17a-0051-41a5-83a1-fed3ce07e990",
 								"exec": [
 									"const orderId = pm.globals.get(\"orderId\");\r",
 									"\r",
@@ -214,7 +214,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "9cde664b-8764-42d4-9993-9e51d049a598",
+								"id": "4d16d905-3caa-4837-bfab-86eddff77adb",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
@@ -258,7 +258,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "5dacae0a-3d9f-4f48-854f-ece4519ea52c",
+								"id": "f56a6f9c-6622-4ff6-a3fc-767db63f20ff",
 								"exec": [
 									"pm.test(\"Status code is 204\", function () {\r",
 									"    pm.response.to.have.status(204);\r",
@@ -302,7 +302,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "d28ac8e8-bbd8-40c7-b535-43321ae0db35",
+								"id": "8f0de6ae-f388-4dc9-96cc-431240b35784",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
@@ -353,7 +353,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "9aa20a50-7fca-4558-a7da-8ac4f18ef5cb",
+								"id": "080a62a8-74f0-4ce3-ab90-c7acd3af570d",
 								"exec": [
 									"pm.test(\"Response is a success\", function () {\r",
 									"    pm.expect(pm.response.code).to.be.gte(200).and.to.be.lt(300)\r",
@@ -403,7 +403,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "bdf79b54-cd74-42cc-a94c-5546fa3de072",
+								"id": "fb76ca46-fb76-4d14-95dc-caea4bcc4f0b",
 								"exec": [
 									"pm.test(\"Response is a failure\", function () {\r",
 									"    pm.response.to.have.status(409);\r",
@@ -452,7 +452,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "12e516ff-4d4c-4f20-9609-e3d9257e805a",
+								"id": "48499b73-1112-487b-9d6a-94cd8738248e",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
@@ -573,7 +573,7 @@
 					"response": []
 				},
 				{
-					"name": "One order",
+					"name": "One order V1",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -605,6 +605,45 @@
 							"path": [
 								"api",
 								"v1",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "One order V2",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{userId}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"productId\": 1, \"quantity\": 1, \"accountId\": 1}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v2/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v2",
 								"orders"
 							]
 						}

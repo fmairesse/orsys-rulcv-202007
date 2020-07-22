@@ -4,11 +4,16 @@ import java.time.Instant;
 
 public class OrderModel {
 
-	public final int id;
-	public final Instant date;
+	public enum State {
+		PENDING, CREATED
+	}
+
+	public int id;
+	public Instant date;
 	public int accountId;
 	public int productId;
 	public int quantity;
+	public State state = State.PENDING;
 	
 	public OrderModel() {
 		this.id = -1;
